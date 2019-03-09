@@ -1,0 +1,15 @@
+{
+  "name": "7drl19",
+  "version": "0.1.0",
+  "description": "Seven-Day Roguelike 2019",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Alic Szecsei <aszecsei@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.11.0",
+    "parcel-plugin-wasm.rs": "^1.2.8"
+  }
+}
