@@ -25,12 +25,18 @@ impl<'a> System<'a> for RenderSystem {
             String::with_capacity(4 * self.half_width as usize * self.half_height as usize);
         for y in -self.half_height..self.half_height {
             for x in -self.half_width..self.half_width as i32 {
+                let mut has_pushed = false;
                 for (pos, tile) in (&data.pos, &data.tile).join() {
                     if pos.0.x == x && pos.0.y == y {
                         res.push(tile.ch);
+                        has_pushed = true;
                     }
                 }
+                if !has_pushed {
+                    res.push(' ');
+                }
             }
+            res.push('\n');
         }
         let vp = self.viewport.lock().unwrap();
         vp.set_inner_html(&res);
@@ -50,10 +56,10 @@ impl<'a> System<'a> for PlayerControllerSystem {
         for (pos, _) in (&mut pos, &playable).join() {
             // update the player position
             if kbs.is_key_pressed(keyboard::Key::W) {
-                pos.0.y += 1;
+                pos.0.y -= 1;
             }
             if kbs.is_key_pressed(keyboard::Key::S) {
-                pos.0.y -= 1;
+                pos.0.y += 1;
             }
             if kbs.is_key_pressed(keyboard::Key::A) {
                 pos.0.x -= 1;
